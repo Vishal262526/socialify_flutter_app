@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "400518549969",
+    "project_id": "socialify-213f8",
+    "storage_bucket": "socialify-213f8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:400518549969:android:ccdd25e7a0fb1d058c90f0",
+        "android_client_info": {
+          "package_name": "com.example.socialify"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjAMvfKu1-RLxGjo2841UxsFK_qwPoXNE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
