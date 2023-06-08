@@ -61,16 +61,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   final String groupId =
                       getGroupId(snapshot.data['groups'][currentIndex]);
 
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 8,
-                    ),
-                    child: GroupTile(
-                      groupName: groupName,
-                      groupId: groupId,
-                      subTitle: "No Message are there",
-                    ),
+                  return GroupTile(
+                    username: username,
+                    groupName: groupName,
+                    groupId: groupId,
+                    subTitle: "No Message are there",
                   );
                 },
               );

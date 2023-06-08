@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:socialify/helper/helper_function.dart';
 
 class Database {
   Database({this.uid});
@@ -59,6 +60,87 @@ class Database {
             FieldValue.arrayUnion(["${groupDocumentReference.id}_$groupName"])
       });
       return {"success": true};
+    } catch (e) {
+      return {"success": false, "err": e.toString()};
+    }
+  }
+
+  // Getting the chat of the group
+  Stream<QuerySnapshot> getGroupChat(String groupId) {
+    return groupCollection
+        .doc(groupId)
+        .collection("messages")
+        .orderBy("time")
+        .snapshots();
+  }
+
+  Future<String> getGroupAdmin(String groupId) async {
+    // DocumentReference df = groupCollection.doc(groupId);
+    // DocumentSnapshot snapshot = await df.get();
+    // return snapshot['admin'];
+    DocumentSnapshot groupSnapShot = await groupCollection.doc(groupId).get();
+    return groupSnapShot['admin'];
+  }
+
+  // Getting Group Members
+  Stream<DocumentSnapshot> getGroupMembers(String groupId) {
+    return groupCollection.doc(groupId).snapshots();
+  }
+
+  // Search an Particular Group
+  Future<QuerySnapshot> searchGroupByName(
+    String groupName,
+  ) {
+    return groupCollection.where("groupName", isEqualTo: groupName).get();
+  }
+
+  // Check already have in a group or not
+  Future<bool> isUserJoined(
+    String groupId,
+    String groupName,
+    String username,
+  ) async {
+    DocumentReference userDocRef = userCollection.doc(uid);
+    DocumentSnapshot userDocSnap = await userDocRef.get();
+
+    List groups = await userDocSnap['groups'];
+    if (groups.contains("${groupId}_$groupName")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<Map> toggleGroupJoin(
+      String groupId, String groupName, String username) async {
+    // Doc ref
+    DocumentReference userDocRef = userCollection.doc(uid);
+    DocumentReference groupDocRef = groupCollection.doc(groupId);
+
+    DocumentSnapshot userSnapshot = await userDocRef.get();
+    DocumentSnapshot groupSnapshot = await groupDocRef.get();
+
+    List userGroups = userSnapshot['groups'];
+
+    // if user is in the group then remove then otherwise join them
+    try {
+      if (userGroups.contains("${groupId}_$groupName")) {
+        userDocRef.update({
+          "groups": FieldValue.arrayRemove(['${groupId}_$groupName'])
+        });
+        await groupDocRef.update({
+          "members": FieldValue.arrayRemove(["${uid}_$username"])
+        });
+        return {"success": true, "msg": "You are Remove from $groupName Group"};
+      } else {
+        userDocRef.update({
+          "groups": FieldValue.arrayUnion(['${groupId}_$groupName'])
+        });
+        await groupDocRef.update({
+          "members": FieldValue.arrayUnion(["${uid}_$username"])
+        });
+        return {"success": true, "msg": "You are Added in $groupName Group"};
+      }
     } catch (e) {
       return {"success": false, "err": e.toString()};
     }

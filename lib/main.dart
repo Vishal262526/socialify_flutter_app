@@ -47,15 +47,16 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData.light().copyWith(
-          floatingActionButtonTheme: const FloatingActionButtonThemeData(
-            backgroundColor: kprimaryColor,
-          ),
-          appBarTheme: const AppBarTheme(
-            backgroundColor: kprimaryColor,
-            centerTitle: true,
-            elevation: 0,
-          ),
-          scaffoldBackgroundColor: kLightColor),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: kprimaryColor,
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: kprimaryColor,
+          centerTitle: true,
+          elevation: 0,
+        ),
+        scaffoldBackgroundColor: kLightColor,
+      ),
       home: userIsLoggedin ? const HomeScreen() : const LoginScreen(),
     );
   }
