@@ -70,7 +70,7 @@ class Database {
     return groupCollection
         .doc(groupId)
         .collection("messages")
-        .orderBy("time")
+        .orderBy("time", descending: true)
         .snapshots();
   }
 
@@ -118,7 +118,6 @@ class Database {
     DocumentReference groupDocRef = groupCollection.doc(groupId);
 
     DocumentSnapshot userSnapshot = await userDocRef.get();
-    DocumentSnapshot groupSnapshot = await groupDocRef.get();
 
     List userGroups = userSnapshot['groups'];
 
@@ -143,6 +142,24 @@ class Database {
       }
     } catch (e) {
       return {"success": false, "err": e.toString()};
+    }
+  }
+
+  Future<bool> sendMessage(
+      String groupId, Map<String, dynamic> chatMessageData) async {
+    try {
+      DocumentReference chatDoc = await groupCollection
+          .doc(groupId)
+          .collection('messages')
+          .add(chatMessageData);
+      await groupCollection.doc(groupId).update({
+        "recentMessage": chatMessageData['message'],
+        'recentMessageSender': chatMessageData['sender'],
+        "recentMessageTime": chatMessageData['time'],
+      });
+      return true;
+    } catch (e) {
+      return false;
     }
   }
 }

@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:socialify/components/group_tile.dart';
 import 'package:socialify/components/primary_btn.dart';
 import 'package:socialify/components/primary_input.dart';
 import 'package:socialify/helper/helper_function.dart';
+import 'package:socialify/provider/theme_provider.dart';
 import 'package:socialify/screens/login_screen.dart';
 import 'package:socialify/screens/profile_screen.dart';
 import 'package:socialify/screens/search_screen.dart';
@@ -203,6 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Groups"),
@@ -249,6 +252,32 @@ class _HomeScreenState extends State<HomeScreen> {
             const Divider(
               color: kprimaryColor,
               height: 2,
+            ),
+            ListTile(
+              onTap: () {},
+              selected: false,
+              selectedColor: kprimaryColor,
+              leading: const Icon(Icons.dark_mode),
+              title: const Text(
+                "Dark Mode",
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+              trailing: Switch.adaptive(
+                value: themeProvider.isDarkMode,
+                onChanged: (value) {
+                  final provider =
+                      Provider.of<ThemeProvider>(context, listen: false);
+                  provider.toggleThemeMode(value);
+                },
+              ),
+              // trailing: ,
+              // contentPadding:
+              // const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            ),
+            const SizedBox(
+              height: 16,
             ),
             ListTile(
               onTap: () {},

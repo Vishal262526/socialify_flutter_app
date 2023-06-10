@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:socialify/components/primary_input.dart';
 import 'package:socialify/components/search_group_tile.dart';
 import 'package:socialify/helper/helper_function.dart';
+import 'package:socialify/provider/theme_provider.dart';
 import 'package:socialify/servies/database.dart';
 import 'package:socialify/utils/colors.dart';
 import 'package:socialify/widgets.dart';
@@ -84,9 +86,6 @@ class _SearchScreenState extends State<SearchScreen> {
               if (groupJoiningStatus['success']) {
                 showSnackBar(context, kprimaryColor, kWhiteColor,
                     groupJoiningStatus['msg']);
-                setState(() {
-                  isJoined = !isJoined;
-                });
               } else {
                 print(groupJoiningStatus['err']);
               }
@@ -134,7 +133,9 @@ class _SearchScreenState extends State<SearchScreen> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            color: kprimaryColor,
+            color: Provider.of<ThemeProvider>(context).mode == ThemeMode.dark
+                ? Colors.grey.shade800
+                : kprimaryColor,
             padding: const EdgeInsets.symmetric(
               horizontal: 15,
               vertical: 10,

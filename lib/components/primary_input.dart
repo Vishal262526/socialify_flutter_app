@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:socialify/provider/theme_provider.dart';
+import 'package:socialify/utils/colors.dart';
 
 class PrimaryInput extends StatelessWidget {
   const PrimaryInput({
@@ -22,13 +25,15 @@ class PrimaryInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
-      style: TextStyle(color: textColor),
+      style: TextStyle(
+        color: Theme.of(context).iconTheme.color,
+      ),
       obscureText: secureTextEntry,
       keyboardType: keywordType,
       decoration: InputDecoration(
         hintText: placeholder,
-        hintStyle: TextStyle(
-          color: textColor,
+        hintStyle: const TextStyle(
+          color: kWhiteColor,
         ),
         // enabled: underlineInputBorder
         border: underlineInputBorder

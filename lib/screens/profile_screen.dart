@@ -161,20 +161,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 height: 24,
               ),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                const Text(
+                Text(
                   "Full Name : ",
                   style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
-                    color: kBlackColor,
+                    color: Theme.of(context).iconTheme.color,
                   ),
                 ),
                 Text(
                   username,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
-                    color: kBlackColor,
+                    color: Theme.of(context).iconTheme.color,
                   ),
                 ),
               ]),
@@ -184,20 +184,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     "Full Email : ",
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
-                      color: kBlackColor,
+                      color: Theme.of(context).iconTheme.color,
                     ),
                   ),
                   Text(
                     email,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
-                      color: kBlackColor,
+                      color: Theme.of(context).iconTheme.color,
                     ),
                   ),
                 ],

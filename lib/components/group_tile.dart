@@ -48,10 +48,10 @@ class GroupTile extends StatelessWidget {
               )),
           title: Text(
             groupName,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: kBlackColor,
+              color: Theme.of(context).iconTheme.color,
             ),
           ),
           subtitle: Text(

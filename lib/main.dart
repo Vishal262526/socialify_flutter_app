@@ -1,10 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:socialify/firebase_options.dart';
 import 'package:socialify/helper/helper_function.dart';
+import 'package:socialify/provider/theme_provider.dart';
 import 'package:socialify/screens/home_screen.dart';
 import 'package:socialify/screens/login_screen.dart';
-import 'package:socialify/utils/colors.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,21 +44,18 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData.light().copyWith(
-        floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          backgroundColor: kprimaryColor,
-        ),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: kprimaryColor,
-          centerTitle: true,
-          elevation: 0,
-        ),
-        scaffoldBackgroundColor: kLightColor,
-      ),
-      home: userIsLoggedin ? const HomeScreen() : const LoginScreen(),
-    );
+    return ChangeNotifierProvider(
+        create: (context) => ThemeProvider(),
+        builder: (context, child) {
+          final themeProvider = Provider.of<ThemeProvider>(context);
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Flutter Demo',
+            themeMode: themeProvider.mode,
+            theme: MyTheme.lightTheme,
+            darkTheme: MyTheme.darkTheme,
+            home: userIsLoggedin ? const HomeScreen() : const LoginScreen(),
+          );
+        });
   }
 }

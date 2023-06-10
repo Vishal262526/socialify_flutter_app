@@ -65,7 +65,10 @@ class SearchGroupTile extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.add),
+                  const Icon(
+                    Icons.add,
+                    color: kWhiteColor,
+                  ),
                   const SizedBox(
                     width: 4,
                   ),
